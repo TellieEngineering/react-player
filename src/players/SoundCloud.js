@@ -22,7 +22,7 @@ export default class SoundCloud extends Component {
   load (url, isReady) {
     getSDK(SDK_URL, SDK_GLOBAL).then(SC => {
       if (!this.iframe) return
-      const { PLAY, PLAY_PROGRESS, PAUSE, FINISH, ERROR } = SC.Widget.Events
+      const { PLAY, PLAY_PROGRESS, PAUSE, FINISH, ERROR, SEEK } = SC.Widget.Events
       if (!isReady) {
         this.player = SC.Widget(this.iframe)
         this.player.bind(PLAY, this.props.onPlay)
@@ -40,6 +40,7 @@ export default class SoundCloud extends Component {
         })
         this.player.bind(FINISH, () => this.props.onEnded())
         this.player.bind(ERROR, e => this.props.onError(e))
+        this.player.bind(SEEK, e => this.props.onSeek(e.currentPosition / 1000))
       }
       this.player.load(url, {
         ...this.props.config.options,
