@@ -3,5 +3,4 @@
 codecov.yml
 coverage
 test
-webpack/*
 yarn-error.log
