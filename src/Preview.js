@@ -26,7 +26,7 @@ export default class Preview extends Component {
     this.mounted = false
   }
 
-  fetchImage ({ url, light }) {
+  fetchImage ({ url, light, oEmbedUrl }) {
     if (typeof light === 'string') {
       this.setState({ image: light })
       return
@@ -36,7 +36,7 @@ export default class Preview extends Component {
       return
     }
     this.setState({ image: null })
-    return window.fetch(`https://noembed.com/embed?url=${url}`)
+    return window.fetch(oEmbedUrl.replace('{url}', url))
       .then(response => response.json())
       .then(data => {
         if (data.thumbnail_url && this.mounted) {
@@ -54,7 +54,7 @@ export default class Preview extends Component {
   }
 
   render () {
-    const { onClick, playIcon } = this.props
+    const { onClick, playIcon, previewTabIndex } = this.props
     const { image } = this.state
     const flexCenter = {
       display: 'flex',
@@ -95,7 +95,7 @@ export default class Preview extends Component {
         style={styles.preview}
         className='react-player__preview'
         onClick={onClick}
-        tabIndex={0}
+        tabIndex={previewTabIndex}
         onKeyPress={this.handleKeyPress}
       >
         {playIcon || defaultPlayIcon}
