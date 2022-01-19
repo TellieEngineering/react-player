@@ -343,7 +343,6 @@ test('render - string array', t => {
 
 test('render - object array', t => {
   const url = [
-    { src: 'file.mp4', type: 'video/mp4', media: '(max-width:800px)' },
     { src: 'file.mp4', type: 'video/mp4' },
     { src: 'file.ogg', type: 'video/ogg' }
   ]
@@ -351,8 +350,7 @@ test('render - object array', t => {
   t.true(wrapper.containsMatchingElement(
     <video src={undefined}>
       {[
-        <source key={0} src='file.mp4' type='video/mp4' media='(max-width:800px)' />,
-        <source key={1} src='file.mp4' type='video/mp4' />,
+        <source key={0} src='file.mp4' type='video/mp4' />,
         <source key={1} src='file.ogg' type='video/ogg' />
       ]}
       {[]}
@@ -400,7 +398,8 @@ test('clear srcObject on url change', t => {
   const url = new MockMediaStream()
   const wrapper = shallow(<FilePlayer url={url} config={config} />)
   const instance = wrapper.instance()
+  instance.player.removeAttribute = sinon.fake()
   instance.load(url)
   wrapper.setProps({ url: 'file.mpv' })
-  t.is(instance.player.srcObject, null)
+  t.true(instance.player.removeAttribute.calledOnceWith('srcObject'))
 })
