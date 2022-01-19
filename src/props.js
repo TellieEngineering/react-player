@@ -19,9 +19,7 @@ export const propTypes = {
   stopOnUnmount: bool,
   light: oneOfType([bool, string]),
   playIcon: node,
-  previewTabIndex: number,
   fallback: node,
-  oEmbedUrl: string,
   wrapper: oneOfType([
     string,
     func,
@@ -46,8 +44,7 @@ export const propTypes = {
       params: object
     }),
     vimeo: shape({
-      playerOptions: object,
-      title: string
+      playerOptions: object
     }),
     file: shape({
       attributes: object,
@@ -88,7 +85,6 @@ export const propTypes = {
   onError: func,
   onDuration: func,
   onSeek: func,
-  onPlaybackRateChange: func,
   onProgress: func,
   onClickPreview: func,
   onEnablePIP: func,
@@ -114,8 +110,6 @@ export const defaultProps = {
   light: false,
   fallback: null,
   wrapper: 'div',
-  previewTabIndex: 0,
-  oEmbedUrl: 'https://noembed.com/embed?url={url}',
   config: {
     soundcloud: {
       options: {
@@ -157,8 +151,7 @@ export const defaultProps = {
         byline: false,
         portrait: false,
         title: false
-      },
-      title: null
+      }
     },
     file: {
       attributes: {},
@@ -201,7 +194,6 @@ export const defaultProps = {
   onError: noop,
   onDuration: noop,
   onSeek: noop,
-  onPlaybackRateChange: noop,
   onProgress: noop,
   onClickPreview: noop,
   onEnablePIP: noop,

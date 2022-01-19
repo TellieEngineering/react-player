@@ -48,7 +48,6 @@ export default class Wistia extends Component {
           this.player.bind('pause', this.onPause)
           this.player.bind('seek', this.onSeek)
           this.player.bind('end', this.onEnded)
-          this.player.bind('playbackratechange', this.onPlaybackRateChange)
           onReady()
         }
       })
@@ -60,7 +59,6 @@ export default class Wistia extends Component {
     this.player.unbind('pause', this.onPause)
     this.player.unbind('seek', this.onSeek)
     this.player.unbind('end', this.onEnded)
-    this.player.unbind('playbackratechange', this.onPlaybackRateChange)
   }
 
   // Proxy methods to prevent listener leaks
@@ -68,7 +66,6 @@ export default class Wistia extends Component {
   onPause = (...args) => this.props.onPause(...args)
   onSeek = (...args) => this.props.onSeek(...args)
   onEnded = (...args) => this.props.onEnded(...args)
-  onPlaybackRateChange = (...args) => this.props.onPlaybackRateChange(...args)
 
   play () {
     this.callPlayer('play')
