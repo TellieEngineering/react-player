@@ -18,7 +18,7 @@
 </p>
 
 <p align='center'>
-  A React component for playing a variety of URLs, including file paths, YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia, Mixcloud, and DailyMotion. Not using React? <a href='#standalone-player'>No problem.</a>
+  A React component for playing a variety of URLs, including file paths, YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia, Mixcloud, DailyMotion and Kaltura. Not using React? <a href='#standalone-player'>No problem.</a>
 </p>
 
 ### Migrating to ReactPlayer `v2.0`
@@ -96,6 +96,7 @@ Prop | Description | Default
 `fallback` | Element or component to use as a fallback if you are using lazy loading | `null`
 `wrapper` | Element or component to use as the container element | `div`
 `playIcon` | Element or component to use as the play icon in light mode
+`previewTabIndex` | Set the tab index to be used on light mode | 0
 `config` | Override options for the various players, see [config prop](#config-prop)
 
 #### Callback props
@@ -113,6 +114,7 @@ Prop | Description
 `onBuffer` | Called when media starts buffering
 `onBufferEnd` | Called when media has finished buffering<br />&nbsp; ◦ &nbsp;Works for files, YouTube and Facebook
 `onSeek` | Called when media seeks with `seconds` parameter
+`onPlaybackRateChange` | Called when playback rate of the player changed<br />&nbsp; ◦ &nbsp;Only supported by YouTube, Wistia, and file paths
 `onEnded` | Called when media finishes playing<br />&nbsp; ◦ &nbsp;Does not fire when `loop` is set to `true`
 `onError` | Called when an error occurs whilst attempting to play media
 `onClickPreview` | Called when user clicks the `light` mode preview
@@ -144,7 +146,7 @@ Key | Options
 `youtube` | `playerVars`: Override the [default player vars](https://developers.google.com/youtube/player_parameters?playerVersion=HTML5)<br />`embedOptions`: Override the [default embed options](https://developers.google.com/youtube/iframe_api_reference#Loading_a_Video_Player)<br />`onUnstarted`: Called when state changes to `unstarted` (usually when video fails to autoplay)
 `facebook` | `appId`: Your own [Facebook app ID](https://developers.facebook.com/docs/apps/register#app-id)<br />`version`: Facebook SDK version<br />`playerId`: Override player ID for consistent server-side rendering (use with [`react-uid`](https://github.com/thearnica/react-uid))<br />`attributes`: Extra data attributes to pass to the `fb-video` element
 `soundcloud` | `options`: Override the [default player options](https://developers.soundcloud.com/docs/api/html5-widget#params)
-`vimeo` | `playerOptions`: Override the [default params](https://developer.vimeo.com/player/sdk/embed)
+`vimeo` | `playerOptions`: Override the [default params](https://developer.vimeo.com/player/sdk/embed)<br />`title`: Set the player `iframe` title attribute
 `wistia` | `options`: Override the [default player options](https://wistia.com/doc/embed-options#options_list)<br />`playerId`: Override player ID for consistent server-side rendering (use with [`react-uid`](https://github.com/thearnica/react-uid))
 `mixcloud` | `options`: Override the [default player options](https://www.mixcloud.com/developers/widget/#methods)
 `dailymotion` | `params`: Override the [default player vars](https://developer.dailymotion.com/player#player-parameters)
@@ -327,6 +329,7 @@ You can also specify a `type` for each source by using objects with `src` and `t
 * Twitch videos use the [Twitch Interactive Frames API](https://dev.twitch.tv/docs/embed#interactive-frames-for-live-streams-and-vods)
 * DailyMotion videos use the [DailyMotion Player API](https://developer.dailymotion.com/player)
 * Vidyard videos use the [Vidyard Player API](https://knowledge.vidyard.com/hc/en-us/articles/360019034753-Using-the-Vidyard-Player-API)
+* Kaltura's `react-player` implementation uses the embed.ly [`Player.js`](https://github.com/embedly/player.js) API but Kaltura specific APIs are also available, see [Kaltura Player API](http://player.kaltura.com/docs/index.php?path=kwidget)
 * [Supported file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats) are playing using [`<video>`](https://developer.mozilla.org/en/docs/Web/HTML/Element/video) or [`<audio>`](https://developer.mozilla.org/en/docs/Web/HTML/Element/audio) elements
   * HLS streams are played using [`hls.js`](https://github.com/video-dev/hls.js)
   * DASH streams are played using [`dash.js`](https://github.com/Dash-Industry-Forum/dash.js)
